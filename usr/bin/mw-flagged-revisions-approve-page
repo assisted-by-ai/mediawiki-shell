@@ -40,7 +40,7 @@ log info "page_file: $page_file"
 
 log info "Requesting revid...         ${TMPFOLDER}/revid.json"
 
-cur_run \
+curl_run \
   "${curl_opts[@]}" \
   --output "${TMPFOLDER}/revid.json" \
   "${WIKI_API}?format=json&action=query&prop=info%7Cflagged&titles=${page_file}"
@@ -85,7 +85,8 @@ curl_run \
   --output "${TMPFOLDER}/review-result.json" \
   --silent \
   --data-urlencode "token=${csrf_token}" \
-  "${WIKI_API}?format=json&action=review&revid=${lastrevid}&flag_accuracy=1&comment=${comment}"
+  --data-urlencode "comment=${comment}" \
+  "${WIKI_API}?format=json&action=review&revid=${lastrevid}&flag_accuracy=1"
 
 ## XXX: Sometimes API login timeout.
 # {
