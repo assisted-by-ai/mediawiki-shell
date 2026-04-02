@@ -78,6 +78,7 @@ comment="mediawiki-shell-bot-flagged-revisions-mass-approve"
 
 log info "Requesting review-result... ${TMPFOLDER}/review-result.json"
 
+## comment is a trusted value: hardcoded in this script.
 curl_run \
   "${curl_opts[@]}" \
   --cookie "$cookie_jar" \
@@ -85,8 +86,7 @@ curl_run \
   --output "${TMPFOLDER}/review-result.json" \
   --silent \
   --data-urlencode "token=${csrf_token}" \
-  --data-urlencode "comment=${comment}" \
-  "${WIKI_API}?format=json&action=review&revid=${lastrevid}&flag_accuracy=1"
+  "${WIKI_API}?format=json&action=review&revid=${lastrevid}&flag_accuracy=1&comment=${comment}"
 
 ## XXX: Sometimes API login timeout.
 # {
